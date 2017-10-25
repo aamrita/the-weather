@@ -1,3 +1,4 @@
 ignore:
   - "src/main/java/com/tcs/weather/constants/ConstantParam.java"  
   - "src/main/java/com/tcs/weather/exception/WeatherException.java"       
+  - "src/main/java/com/tcs/weather/entry/EntryPoint.java"       
