@@ -1,0 +1,3 @@
+ignore:
+  - "ConstantParam.java"  
+  - "WeatherException.java"       
