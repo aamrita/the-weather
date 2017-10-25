@@ -32,7 +32,7 @@ Input to the application is a date from the user-end which is taken in as an arg
 
 _Apart from the user-input date there are a couple of inputs that need to be fed in to the program._
 
-[location.txt](/src/main/resources/locations.txt) : This file contain names of locations for which historical weather data has already been collected and put in the ‘data’ directory under resources.
+[location.txt](/src/main/resources/locations.txt) : This file contain names of locations for which historical weather data has already been collected and put in the ‘data’ directory under resources. Simulation is performed for locations which are present in the location.txt file alone.
 
 [data](/src/main/resources/data) : This directory contain historic weather data files which is put under each month of the year(named by the sequence number of the months).This is in turn grouped under the corresponding locations.
 
@@ -42,20 +42,21 @@ In this application data has been collected from The Bureau of Meteorology, Govt
 
 [coordinates.txt](/src/main/resources/coordinates.txt)  : This file contains mapping of each  locations to its corresponding coordinates in a general form as location:latitude,longitude,elevation
 
-# Steps to run the application.
+# Steps to run the application
 **Step 1** : Clone the repository.
 
      git clone https://github.com/aamrita/the-weather
      
-**Step 2** : build the project. 
+**Step 2** : Build the project. 
 
 Navigate to the root directory of the project and build the project using the below command:
       
     mvn clean install
-**Step 3** :
-By now you will get a jar generted in the target folder. To run the jar execute the below command.
+**Step 3** : Run the application
+By now you will get a jar generated in the target folder. To run the jar execute the below command:
 
      Pattern : java -jar jar-name.jar MM/dd/yyyy
+     e.g.,  java -jar target/TheWeather-0.0.1-SNAPSHOT-jar-with-dependencies.jar 11/28/2018     
 
 # Output
 For an input date, the program generates a list of parameters and is written to an output file of the form MM_dd_yyyy_results in the parent location itself.
@@ -65,7 +66,7 @@ For an input date, the program generates a list of parameters and is written to 
 Each line in the output file include name of the location, its position (combination of its latitude, longitude & elevation), prediction date( ISO8601), weather condition, temperature(°C), pressure(hPa) and relative humidity(%).
 
     Pattern: location|latitude,longitude,elevation|date_time|conditions|temperature|pressure|humidity
-    e.g., Sydney|2018-09-20T00:00:00Z|-33.86,151.2,20|Rainy|14.2|1020.3|59.6
+    e.g., Sydney|-33.86,151.2,20|2018-09-20T00:00:00Z|Rainy|14.2|1020.3|59.6
 
 
 # How does it work?
