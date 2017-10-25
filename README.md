@@ -1,5 +1,10 @@
-# the-weather
-Weather Simulator in Java 
+# The Weather
+
+[![Build Status](https://travis-ci.org/aamrita/the-weather.svg?branch=master)](https://travis-ci.org/aamrita/the-weather)
+[![codecov](https://codecov.io/gh/aamrita/the-weather/branch/master/graph/badge.svg)](https://codecov.io/gh/aamrita/the-weather)
+
+Weather Simulator in Java
+
 # Problem Statement
 Create a toy simulation of the environment (taking into account things like atmosphere, topography, geography, oceanography, or similar) that evolves overtime.
 # Prerequisites
