@@ -75,7 +75,7 @@ public class SimulatorOutput {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(location + "|" + predictionDate + "|" + cordinate + "|"
+		builder.append(location + "|" + cordinate + "|" + predictionDate + "|"
 				+ condition + "|" + forecastTemp + "|" + forecastPressure + "|"
 				+ forecastHumidity);
 		return builder.toString();
