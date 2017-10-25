@@ -29,9 +29,9 @@ public class ConstantParam {
 	public static final String ISO_DATE = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
 	// Constants for ARIMA model
-	public static final int ARIMA_PARAM_p = 2;
+	public static final int ARIMA_PARAM_p = 1;
 	public static final int ARIMA_PARAM_d = 0;
-	public static final int ARIMA_PARAM_q = 2;
+	public static final int ARIMA_PARAM_q = 1;
 	public static final int ARIMA_PARAM_P = 1;
 	public static final int ARIMA_PARAM_D = 1;
 	public static final int ARIMA_PARAM_Q = 0;
@@ -42,7 +42,7 @@ public class ConstantParam {
 	public static final String SHWR_TWO = "Rainy";
 	public static final String FOGGY = "Foggy";
 	public static final String CLOUDY = "Cloudy";
-	public static final String POSSIBLE_LATE_SHWR = "Late Shower";
+	public static final String POSSIBLE_LATE_SHWR = "Possible Late Shower";
 	public static final String COOL = "Cool";
 	public static final String COLD = "Cold";
 	public static final String WARM = "Warm";

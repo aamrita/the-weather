@@ -38,7 +38,7 @@ public class LocationUtils {
                 locationlist.add(line);
             }
 		} catch (Exception e1) {
-			throw new WeatherException(ConstantParam.LOCATIONS_NT);
+			throw new WeatherException(ConstantParam.LOC_ISSUE);
 		}
 		return locationlist;
 	}
@@ -76,11 +76,11 @@ public class LocationUtils {
             BufferedReader in = new BufferedReader(new InputStreamReader(classLoader.getResourceAsStream(ConstantParam.COORDINATE_FILE)));
             String fileLine;
             while ((fileLine = in.readLine()) != null) {
-				String[] firstSplitRes = fileLine.split(
+				String[] firstSplit = fileLine.split(
 						ConstantParam.COLON_OPR, -1);
-				if (loc.equalsIgnoreCase(firstSplitRes[0])) {
+				if (loc.equalsIgnoreCase(firstSplit[0])) {
 					Cordinate cordinate = new Cordinate();
-					String[] cords = firstSplitRes[1].split(
+					String[] cords = firstSplit[1].split(
 							ConstantParam.COMA_OPR, -1);
 					cordinate.setLat(Double.parseDouble(cords[0]));
 					cordinate.setLon(Double.parseDouble(cords[1]));
