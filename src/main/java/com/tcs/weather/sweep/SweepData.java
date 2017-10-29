@@ -1,17 +1,15 @@
 package com.tcs.weather.sweep;
 
-import java.io.*;
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import com.tcs.weather.bean.SimulatorInput;
 import com.tcs.weather.bean.SimulatorOutput;
 import com.tcs.weather.constants.ConstantParam;
 import com.tcs.weather.exception.WeatherException;
-import com.tcs.weather.util.ClimateUtils;
 
 /**
  * @author amrutha
@@ -36,35 +34,42 @@ public class SweepData {
 	 * 
 	 * @throws WeatherException
 	 */
-	public SimulatorInput pullDataIn(List<String> historyFileList, SimulatorInput simInput) throws WeatherException {
+	public SimulatorInput pullDataIn(List<String> historyFileList,SimulatorInput simInput) throws WeatherException {
 		List<Double> tempratureList = new ArrayList<Double>();
 		List<Double> humidityList = new ArrayList<Double>();
 		List<Double> pressureList = new ArrayList<Double>();
+		int hour = simInput.getHour();
 
 		for (String eachfile : historyFileList) {
 			// Get file from resources folder
 			ClassLoader classLoader = getClass().getClassLoader();
-
+		
 			try {
-                BufferedReader in = new BufferedReader(new InputStreamReader(classLoader.getResourceAsStream(eachfile)));
-                in.readLine();
-                String line;
-                while ((line = in.readLine()) != null) {
-					String[] lineSplits = line.split(ConstantParam.COMA_OPR, -1);
-					// adding values to list after taking a mean of weather
-					// parameters at 9am and 3pm
-					tempratureList.add(ClimateUtils.getMean(lineSplits[9],
-							lineSplits[15]));
-					humidityList.add(ClimateUtils.getMean(lineSplits[10],
-							lineSplits[16]));
-					pressureList.add(ClimateUtils.getMean(lineSplits[14],
-							lineSplits[20]));
-					
+				BufferedReader in = new BufferedReader(new InputStreamReader(
+						classLoader.getResourceAsStream(eachfile)));
+				in.readLine();
+				String line;
+				while ((line = in.readLine()) != null) {
+					String[] lineSplits = line
+							.split(ConstantParam.COMA_OPR, -1);
+					// adding weather parameter reading at 9am to list (in if
+					// condition).
+					// adding weather parameter reading at 3pm to list (in else
+					// condition).
+					if (hour <= 12) {
+						tempratureList.add(Double.parseDouble(lineSplits[9]));
+						humidityList.add(Double.parseDouble(lineSplits[10]));
+						pressureList.add(Double.parseDouble(lineSplits[14]));
+					} else {
+						tempratureList.add(Double.parseDouble(lineSplits[15]));
+						humidityList.add(Double.parseDouble(lineSplits[16]));
+						pressureList.add(Double.parseDouble(lineSplits[20]));
+					}
+
 				}
 			} catch (Exception e1) {
 				throw new WeatherException(e1, ConstantParam.INP_MNTH_FILE_NT);
 			}
-
 		}
 		simInput.setInpTemp(tempratureList);
 		simInput.setInpHumidity(humidityList);

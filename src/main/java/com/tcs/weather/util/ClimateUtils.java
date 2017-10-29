@@ -13,22 +13,16 @@ public class ClimateUtils {
 
 	/**
 	 * @param temp1
-	 *            : holds the weather parameter at 9 am(Say,temperature at 9am)
+	 *            : holds the upper-bound of forecasted values
 	 * @param temp2
-	 *            : holds the weather parameter at 3 pm(Say,temperature at 3pm)
+	 *            : holds the lower-bound of forecasted values
 	 * 
 	 * @return : is a double value which is a mean value of the input values.
 	 */
-	public static Double getMean(String temp1, String temp2) {
-		Double meanTemp = new Double(0);
-		temp1 = temp1.trim();
-		temp2 = temp2.trim();
-		if (!(temp1.isEmpty() || temp2.isEmpty())) {
-			meanTemp = (Double.parseDouble(temp1) + Double.parseDouble(temp2)) / 2;
-		}
-		return meanTemp;
+	public static Double getMean(Double upper, Double lower) {
+		return (upper+lower)/2;
 	}
-
+	
 	/**
 	 * @param simulatorOutput
 	 *            : object of SimulatorOutput.

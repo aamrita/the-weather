@@ -16,7 +16,7 @@ import org.junit.Test;
 import com.tcs.weather.bean.Cordinate;
 import com.tcs.weather.bean.SimulatorInput;
 import com.tcs.weather.constants.ConstantParam;
-import com.tcs.weather.simulaion.Simulator;
+import com.tcs.weather.simulation.Simulator;
 
 public class SimulatorTest {
 	SimulatorInput simulator = new SimulatorInput();

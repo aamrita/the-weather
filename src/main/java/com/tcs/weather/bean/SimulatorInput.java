@@ -17,6 +17,7 @@ public class SimulatorInput {
 	private List<Double> inpPressure;
 	private List<Double> inpHumidity;
 	private Date inpRefDate;
+	private int hour;
 	private Map<String,Cordinate> cordMap;
 	
 	public String getLocation() {
@@ -48,6 +49,12 @@ public class SimulatorInput {
 	}
 	public void setInpRefDate(Date inpRefDate) {
 		this.inpRefDate = inpRefDate;
+	}
+	public int getHour() {
+		return hour;
+	}
+	public void setHour(int hour) {
+		this.hour = hour;
 	}
 	public Map<String, Cordinate> getCordMap() {
 		return cordMap;

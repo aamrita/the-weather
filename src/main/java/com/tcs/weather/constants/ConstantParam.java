@@ -11,6 +11,7 @@ public class ConstantParam {
 	public static final String COMA_OPR = ",";
 	public static final String FWRD_SLASH = "/";
 	public static final String UNDERSCORE = "_";
+	public static final String SPACE = " ";
 
 	// Constants for input/output files
 	public static final String DOT_OPR = ".";
@@ -24,8 +25,9 @@ public class ConstantParam {
 	public static final int DEF_NUM_MNTH = 3;
 	public static final Integer DEF_DEC_MNTH = 12;
 	public static final Integer DEF_NOV_MNTH = 11;
-	public static final String MNTH_PREFIX = "0";
+	public static final String ZERO_PREFIX = "0";
 	public static final String DATE_FORMAT = "MM/dd/yyyy";
+	public static final String DATE_FORMAT_HR = "MM/dd/yyyy HH";
 	public static final String ISO_DATE = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
 	// Constants for ARIMA model
@@ -48,7 +50,7 @@ public class ConstantParam {
 	public static final String WARM = "Warm";
 
 	//Constants for Logger
-	public static final Object INVALID_ARGUMENTS = "Invalid input. Please enter a valid date in the format MM/dd/yyyy as input";
+	public static final Object INVALID_ARGUMENTS = "Invalid input. Please enter a valid date in the format MM/dd/yyyy HH or MM/dd/yyyy HH:mm:ss as input";
 	public static final Object AT_ENTRY = "You are at the EntryPoint";
 	public static final Object FUTURE_DATE = "Invalid Input! Please enter a future date in the format MM/dd/yyyy";
 	

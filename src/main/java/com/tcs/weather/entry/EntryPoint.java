@@ -17,7 +17,7 @@ import com.tcs.weather.bean.SimulatorInput;
 import com.tcs.weather.bean.SimulatorOutput;
 import com.tcs.weather.constants.ConstantParam;
 import com.tcs.weather.exception.WeatherException;
-import com.tcs.weather.simulaion.Simulator;
+import com.tcs.weather.simulation.Simulator;
 import com.tcs.weather.sweep.SweepData;
 import com.tcs.weather.util.DateUtils;
 import com.tcs.weather.util.FileUtils;
@@ -28,8 +28,9 @@ import com.tcs.weather.util.LocationUtils;
  * 
  *         This is the entry point for the program.
  * 
- *         This class takes date(MM/dd/yyyy) as input; validate it and simulates
- *         output parameters.
+ *         This class takes date(MM/dd/yyyy) and hour(in the 24 hour clock) for
+ *         which output needs to be simulated as input arguments; validate it
+ *         and simulates output parameters.
  * 
  */
 public class EntryPoint {
@@ -38,7 +39,8 @@ public class EntryPoint {
 
 	/**
 	 * @param args
-	 *            :user input date in MM/dd/yyyy format.
+	 *            :user input date in MM/dd/yyyy format and hour(either as HH or
+	 *            HH:mm:ss).
 	 * 
 	 * 
 	 *            Output is generated as simulated weather data for each
@@ -54,18 +56,20 @@ public class EntryPoint {
 			LOGGER.debug(ConstantParam.AT_ENTRY);
 
 			// Validates the input argument null check and count
-			if (args == null || args.length != 1) {
+			if (args == null || args.length > 2) {
 				LOGGER.error(ConstantParam.INVALID_ARGUMENTS);
 				System.exit(1);
 			}
 
 			String inpDate = args[0];
+			String inputHour = args[1];
+			int hour = DateUtils.validateHour(inputHour);
 			List<String> locations;
 			Date inpRefDate = new Date();
 			PrintWriter printwriter = null;
 
-			// Convert inpDate from string to date format ( MM/dd/yyyy )
-			inpRefDate = DateUtils.formatDate(inpDate);
+			// Convert inpDate from string to date format ( MM/dd/yyyy HH:00:00)
+			inpRefDate = DateUtils.formatDate(inpDate, hour);
 
 			// Check if the input date is a future date.
 			boolean futureDate = DateUtils.checkIfFutureDate(inpDate);
@@ -110,6 +114,7 @@ public class EntryPoint {
 				// name,date and coordinate information.
 				simulatorinput.setLocation(location);
 				simulatorinput.setInpRefDate(inpRefDate);
+				simulatorinput.setHour(hour);
 				simulatorinput.setCordMap(cordinateMap);
 
 				SweepData sweepdata = new SweepData();

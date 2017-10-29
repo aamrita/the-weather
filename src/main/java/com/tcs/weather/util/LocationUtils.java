@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 import com.tcs.weather.bean.Cordinate;
 import com.tcs.weather.constants.ConstantParam;
@@ -32,12 +31,14 @@ public class LocationUtils {
 		List<String> locationlist = new ArrayList<String>();
 		ClassLoader classLoader = getClass().getClassLoader();
 		try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(classLoader.getResourceAsStream(ConstantParam.LOCATIONS_FILE)));
-		    String line;
-            while ((line = in.readLine()) != null) {
-                locationlist.add(line);
-            }
-		} catch (Exception e1) {
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					classLoader
+							.getResourceAsStream(ConstantParam.LOCATIONS_FILE)));
+			String line;
+			while ((line = in.readLine()) != null) {
+				locationlist.add(line);
+			}
+		} catch (IOException e1) {
 			throw new WeatherException(ConstantParam.LOC_ISSUE);
 		}
 		return locationlist;
@@ -53,7 +54,7 @@ public class LocationUtils {
 	public static String getFilePath(String inputLoc, Integer intMonth) {
 		String strMonth = intMonth.toString();
 		if (strMonth.length() < 2) {
-			strMonth = ConstantParam.MNTH_PREFIX + strMonth;
+			strMonth = ConstantParam.ZERO_PREFIX + strMonth;
 		}
 		return ConstantParam.INP_LOC_DIR + "/" + inputLoc.toUpperCase() + "/"
 				+ strMonth + ConstantParam.DOT_OPR + ConstantParam.FILE_EXTNTN;
@@ -71,11 +72,12 @@ public class LocationUtils {
 			throws WeatherException {
 		Map<String, Cordinate> cordinateMap = new HashMap<String, Cordinate>();
 		ClassLoader classLoader = getClass().getClassLoader();
-
 		try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(classLoader.getResourceAsStream(ConstantParam.COORDINATE_FILE)));
-            String fileLine;
-            while ((fileLine = in.readLine()) != null) {
+			BufferedReader in = new BufferedReader(
+					new InputStreamReader(classLoader
+							.getResourceAsStream(ConstantParam.COORDINATE_FILE)));
+			String fileLine;
+			while ((fileLine = in.readLine()) != null) {
 				String[] firstSplit = fileLine.split(
 						ConstantParam.COLON_OPR, -1);
 				if (loc.equalsIgnoreCase(firstSplit[0])) {
@@ -88,7 +90,7 @@ public class LocationUtils {
 					cordinateMap.put(loc, cordinate);
 					break;
 				}
-            }
+			}
 		} catch (Exception e) {
 			throw new WeatherException(ConstantParam.CORD_NT);
 		}

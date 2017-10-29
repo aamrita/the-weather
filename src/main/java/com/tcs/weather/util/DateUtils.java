@@ -28,14 +28,19 @@ public class DateUtils {
 	/**
 	 * @param date
 	 *            : user input date in the form of String.
-	 * @return : an object of Date in the format MM/dd/yyyy.
+	 * @param hour
+	 *            : user input hour in form of int.
+	 * @return : an object of Date in the format MM/dd/yyyy HH:00:00.
 	 * @throws WeatherException
 	 */
-	public static Date formatDate(String date) throws WeatherException {
-		DateFormat dateformat = new SimpleDateFormat(ConstantParam.DATE_FORMAT);
+	public static Date formatDate(String date, int hour)
+			throws WeatherException {
+		DateFormat dateformat = new SimpleDateFormat(
+				ConstantParam.DATE_FORMAT_HR);
 		Date referenceDate = null;
+		String inputDateTime = date + ConstantParam.SPACE + hour;
 		try {
-			referenceDate = dateformat.parse(date);
+			referenceDate = dateformat.parse(inputDateTime);
 		} catch (ParseException e) {
 			throw new WeatherException(ConstantParam.VALID_DATE_MSG
 					+ ConstantParam.DATE_FORMAT);
@@ -101,8 +106,8 @@ public class DateUtils {
 				mnthList.add(ConstantParam.DEF_DEC_MNTH);
 			} else if (refMonthInt < 0) {
 				mnthList.add(ConstantParam.DEF_NOV_MNTH);
-			}else{
-			mnthList.add(refMonthInt);
+			} else {
+				mnthList.add(refMonthInt);
 			}
 			refMonthInt--;
 		}
@@ -120,4 +125,21 @@ public class DateUtils {
 		return outDateIso;
 	}
 
+	/**
+	 * @param hour
+	 *            : user input hour (either as HH or HH:mm:ss)
+	 * @return : hour in integer
+	 */
+	public static int validateHour(String hour) {
+		String hr = "";
+		int validatedHour = 0;
+		if (hour.contains(ConstantParam.COLON_OPR)) {
+			hr = hour.split(ConstantParam.COLON_OPR, -1)[0];
+			validatedHour = Integer.parseInt(hr);
+		} else {
+			validatedHour = Integer.parseInt(hour);
+		}
+		return validatedHour;
+
+	}
 }

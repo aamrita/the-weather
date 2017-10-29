@@ -19,25 +19,27 @@ import com.tcs.weather.exception.WeatherException;
 import com.tcs.weather.util.DateUtils;
 
 public class DateUtilsTest {
-	private static String inputDate, inputIsoDate;
+	private static String inputDate, inputIsoDate,inphour;
 	private static SimpleDateFormat sdf = new SimpleDateFormat(
-			ConstantParam.DATE_FORMAT);
+			ConstantParam.DATE_FORMAT_HR);
 	private static SimpleDateFormat sdfIso = new SimpleDateFormat(
 			ConstantParam.ISO_DATE);
 	private static Date inputDateFormatted;
 	private static List<Integer> myList = new ArrayList<Integer>();
+	private static int hour = 10;
 
 	@Before
 	public void initializeValue() throws ParseException {
-		inputDate = "10/20/2017";
+		inputDate = "10/20/2017 02:00:00";
 		inputDateFormatted = sdf.parse(inputDate);
 		inputIsoDate = sdfIso.format(inputDateFormatted);
 		myList = Arrays.asList(3, 2, 1);
+		inphour = "02:10:32";
 	}
 
 	@Test
 	public void formatDateTest() throws WeatherException {
-		assertEquals(inputDateFormatted, DateUtils.formatDate(inputDate));
+		assertEquals(inputDateFormatted, DateUtils.formatDate(inputDate,hour));
 	}
 
 	@Test
@@ -61,5 +63,11 @@ public class DateUtilsTest {
 	@Test
 	public void convertToIsoTest() {
 		assertEquals(inputIsoDate, DateUtils.convertToIso(inputDateFormatted));
+	}
+	
+	
+	@Test
+	public void validateHourTest(){
+		assertEquals(2,DateUtils.validateHour(inphour));
 	}
 }
