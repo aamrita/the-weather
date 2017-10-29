@@ -61,9 +61,9 @@ public class SweepData {
 						humidityList.add(Double.parseDouble(lineSplits[10]));
 						pressureList.add(Double.parseDouble(lineSplits[14]));
 					} else {
-						tempratureList.add(Double.parseDouble(lineSplits[15]));
-						humidityList.add(Double.parseDouble(lineSplits[16]));
-						pressureList.add(Double.parseDouble(lineSplits[20]));
+						tempratureList.add(Double.parseDouble(lineSplits[15] != null && !lineSplits[15].isEmpty() ? lineSplits[15] : lineSplits[9]));
+						humidityList.add(Double.parseDouble(lineSplits[16] != null && !lineSplits[16].isEmpty() ? lineSplits[16] : lineSplits[10]));
+						pressureList.add(Double.parseDouble(lineSplits[20] != null && !lineSplits[20].isEmpty() ? lineSplits[20] : lineSplits[14]));
 					}
 
 				}
