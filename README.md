@@ -18,17 +18,19 @@ In this project, forecast of the below weather parameters are made.
  - **Humidity**
  - **Weather Condition**
 
-First three being continuous values are simulated using the [ARIMA](https://github.com/signaflo/java-timeseries/wiki/ARIMA-models) model  and based on these values the Weather condition(Sunny/Cloudy/Rainy etc.) is predicted . An analysis of the general pattern in which Temperature , Pressure, Humidity effect the weather condition of a place was made.
+First three being continuous values are simulated using an extension of the [ARIMA](https://github.com/signaflo/java-timeseries/wiki/ARIMA-models) model  and based on these values the Weather condition(Sunny/Cloudy/Rainy etc.) is predicted . An analysis of the general pattern in which Temperature , Pressure, Humidity effect the weather condition of a place was made.
+
+This application make use of the ARIMA (1,0,1) which makes our model a combination of AR and MA. **_Also the upper and lower configuration values along with an error factor is taken from the model and final simulated value is calculated out of it_**. 
 
 # Why ARIMA?
 We have multiple algorithms available for Prediction/Forecasting like the Average approach, Naïve approach, TimeSeries models etc. of which TimeSeries can be used in our case since the weather parameters are those that evolve over time. 
 It brings together the benifits of regressive model and the average approach and is one best fit for our project. 
 
 # Input 
-Input to the application is a date from the user-end which is taken in as an argument. Note that input date has to follow the format _MM/dd/yyyy_ and it has to be a future date.
+Input to the application is a date from the user-end which is taken in as an argument. Note that input date has to follow the format _MM/dd/yyyy HH_ and it has to be a future date. The input can also be of the form _MM/dd/yyyy HH:mm:ss_ ;only the HH part of the time is taken into consideration for simulation though. **HH is expected on a 24 hour cycle that is a number from 0 - 24**
 
-    Pattern : MM/dd/yyyy
-    e.g., 12/20/2018
+    Pattern : MM/dd/yyyy HH
+    e.g., 12/20/2018 16
 
 _Apart from the user-input date there are a couple of inputs that need to be fed in to the program._
 
@@ -55,12 +57,11 @@ Navigate to the root directory of the project and build the project using the be
 **Step 3** : Run the application
 By now you will get a jar generated in the target folder. To run the jar execute the below command:
 
-     Pattern : java -jar jar-name.jar MM/dd/yyyy
-     e.g.,  java -jar target/TheWeather-0.0.1-SNAPSHOT-jar-with-dependencies.jar 11/28/2018     
+     Pattern : java -jar jar-name.jar MM/dd/yyyy HH
+     e.g.,  java -jar target/TheWeather-0.0.1-SNAPSHOT-jar-with-dependencies.jar 12/20/2018 16    
 
 # Output
-For an input date, the program generates a list of parameters and is written to an output file of the form MM_dd_yyyy_results in the parent location itself.
-<elaborate>
+For an input date and hour of the day, the program generates a list of parameters and is written to an output file of the form MM_dd_yyyy_results in the parent location itself.
 
 
 Each line in the output file include name of the location, its position (combination of its latitude, longitude & elevation), prediction date( ISO8601), weather condition, temperature(°C), pressure(hPa) and relative humidity(%).
@@ -75,18 +76,19 @@ On a high level the functionality can be thought to be taking place in 3 phases.
 
 > Fetching the reference data for simulation based on the input.
 
-The program takes a date (MM/dd/yyyy) from the user as an input argument. After validating the date, historic data corresponding to the input month (inferred from the input date) is taken. In this solution we consider **three months historic data** for simulation. That is, if the input date falls in May, we consider the historic data collected from different locations for May, April and March.
+The program takes a date (MM/dd/yyyy HH) from the user as an input argument. After validating the date, historic data corresponding to the input month (inferred from the input date) is taken. In this solution **three months historic data** are considered for simulation. That is, if the input date falls in May, the simulation will be based on the historic data collected from different locations for May, April and March.
+
+Input hour field also has a major role in deciding what data needs to be considered for simulation. If the input hour is 0 - 12 that is until the 12th hour of the day; simulation is drawn out from the historic data collected at 9am. On the other hand for range 13 - 24 historic data recorded at 3 pm(15th hour in 24hr clock) will be considered. This makes the simulation a bit more accurate and reliable.
+
 
 > Simulation of Temperature, Pressure and Humidity values.
 
-Now that we have the historic data, the prediction of weather parameters (temperature, pressure & relative humidity) is performed based on ARIMA Model, respective past weather parameters obtained from the historic data.
-
-Also, in this application we consider the **mean** of weather parameters recorded at **9am and 3pm** for simulation.
+Now that we have the historic data, the prediction of weather parameters (temperature, pressure & relative humidity) is performed based on ARIMA Model, respective past weather parameters obtained from the historic data. Also the data that is taken up for the weather simulation depends not only on the input date but on the hour (HH field - second input argument to the application) also. 
 
 
 > Weather Condition prediction.
 
-Based on the forecast values simulated by ARIMA, we predict the Weather Condition for the input date. For this, a general trend as to how Temperature, Pressure and Humidity affect the weather condition of a place was analysed from the historic data and break points were fixed.
+Based on the forecast values simulated by ARIMA, predictions about the Weather Condition for the input date are made. For this, a general trend as to how Temperature, Pressure and Humidity affect the weather condition of a place was analysed from the historic data and break points were fixed.
  
 # References
 https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average
